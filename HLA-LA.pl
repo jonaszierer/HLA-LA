@@ -412,7 +412,7 @@ if($extractContigs_complete_byFile{$compatible_reference_file}{'*'})
 {
 	my $target_extraction_unmapped = $working_dir_thisSample . '/extraction_unmapped.bam';
 	
-	my $extraction_command_unmapped = qq($samtools_bin view -\@ $threads_minus_1 $view_T_switch $BAM '*' | awk '{if (\$3 == "*") print \$0}' | $samtools_bin view -bo $target_extraction_unmapped -);
+	my $extraction_command_unmapped = qq($samtools_bin view -\@ $threads_minus_1 $view_T_switch $BAM '*' | awk 'BEGIN{print "\@HD\\tVN:1.6"}{if (\$3 == "*") print \$0}' | $samtools_bin view -bo $target_extraction_unmapped -);
 	print "Extract unmapped reads...\n";
 	
 	if(system($extraction_command_unmapped) != 0)
